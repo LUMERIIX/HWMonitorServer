@@ -1,3 +1,5 @@
 {
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.checkstyle.configuration": "${workspaceFolder}\\hwmonitorserver\\target\\checkstyle-checker.xml",
+    "java.checkstyle.version": "8.31"
 }
