@@ -26,13 +26,14 @@ public final class App {
         System.out.println(si.getOperatingSystem());
         System.out.println(hal.getProcessor().getName());
         long[] table = hal.getProcessor().getCurrentFreq();
+        double[] doubletable = new double[table.length];
         for (int i = 0; i < table.length; i++) {
-            table[i] = table[i] / 1000000000;
+            doubletable[i] = (double) table[i] / 1000000000.0;
         }
-        System.out.println(Arrays.toString(table));
+        System.out.println(Arrays.toString(doubletable));
         System.out.println("Memory: " + FormatUtil.formatBytes(hal.getMemory().getAvailable()) + "/" + FormatUtil.formatBytes(hal.getMemory().getTotal())); //Mempry usage
         System.out.println("CPU temp: " + hal.getSensors().getCpuTemperature());
-        //int[] FanSpeeds = hal.;
-        //System.out.println("Fan Speeds: " + Arrays.toString(FanSpeeds));
+        int[] FanSpeeds = hal.getSensors().getFanSpeeds();
+        System.out.println("Fan Speeds: " + Arrays.toString(FanSpeeds));
     }
 }
