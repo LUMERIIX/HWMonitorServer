@@ -11,11 +11,11 @@ import java.nio.charset.Charset;
 //import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonArray;
 
 import org.json.JSONException;
-//import org.json.JSONObject;
 
-enum Index{
+ enum Index{
   PCNAME(1),
   CPUNAME(3),
   CPUTOTALLOAD(5);
@@ -66,10 +66,31 @@ public final class App {
           is.close();
         }
       }
+
+      public static void parseJson (JsonObject obj)
+      {
+        assert(obj.isJsonObject());
+
+        JsonArray stage1 = obj.get("Children").getAsJsonArray();  //stage 1 // 7 children
+        System.out.println("Children \n \n" + stage1 + "\n" + "\n" );  //Debug
+        JsonObject stage2 = stage1.get(0).getAsJsonObject();
+        JsonArray CompList = stage2.get("Children").getAsJsonArray();
+        System.out.println("Children \n \n" + CompList + "\n" + "\n" );  //Debug
+        for(int i = 0; i < CompList.size(); i++){
+          switch(CompList.get(i).getAsJsonObject().get("id").getAsInt())
+          {
+            //case Index.CPUNAME.getIndex():
+            //break;
+            
+
+
+          }
+        }
+      }
     
       public static void main(String[] args) throws IOException, JSONException {
         JsonObject json = readJsonFromUrl("http://192.168.1.20:8085/data.json");
-        assert(json.isJsonObject());
-        System.out.println(json + "\n" + "\n" );
+        System.out.println(json + "\n" + "\n" );  //Debug
+        parseJson(json);
       }
 }
