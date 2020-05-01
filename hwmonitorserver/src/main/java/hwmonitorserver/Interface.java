@@ -24,7 +24,14 @@ class OpenHardwareMonitorInterface {
   public static final int UsedMemory = 26;
   public static final int FreeMemory = 27;
 
-  private static String readAll(Reader rd) throws IOException {
+  public OpenHardwareMonitorInterface()
+  {
+
+  }
+
+  //public get
+
+  public String readAll(Reader rd) throws IOException {
     StringBuilder sb = new StringBuilder();
     int cp;
     while ((cp = rd.read()) != -1) {
@@ -33,7 +40,7 @@ class OpenHardwareMonitorInterface {
     return sb.toString();
   }
 
-  public static JsonObject readJsonFromUrl(String url) throws IOException, JSONException {
+  public JsonObject readJsonFromUrl(String url) throws IOException, JSONException {
     InputStream is = new URL(url).openStream();
     try {
       BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
@@ -45,31 +52,52 @@ class OpenHardwareMonitorInterface {
     }
   }
 
-  public static void parseJson (JsonObject obj)
-  {
+  public void parseJson (JsonObject obj) throws IOException, JSONException {
     assert(obj.isJsonObject());
-
-    JsonArray stage1 = obj.get("Children").getAsJsonArray();  //stage 1 // 7 children
-    System.out.println("Children \n \n" + stage1 + "\n" + "\n" );  //Debug
-    JsonObject stage2 = stage1.get(0).getAsJsonObject();
-    JsonArray CompList = stage2.get("Children").getAsJsonArray();
-    System.out.println("Children \n \n" + CompList + "\n" + "\n" );  //Debug
-    for(int i = 0; i < CompList.size(); i++){
-      switch(CompList.get(i).getAsJsonObject().get("id").getAsInt())
-      {
-        case PCNAME:
-        break;
-        
-
-
+    int test = 0;
+    try{
+      JsonArray stage1 = obj.get("Children").getAsJsonArray();  //stage 1 // 7 children
+      System.out.println("Children \n \n" + stage1 + "\n" + "\n" );  //Debug
+      JsonObject stage2 = stage1.get(0).getAsJsonObject();
+      JsonArray CompList = stage2.get("Children").getAsJsonArray();
+      System.out.println("Children \n \n" + CompList + "\n" + "\n" );  //Debug
+  
+      for(int i = 0; i < CompList.size(); i++){
+        int temp = CompList.get(i).getAsJsonObject().get("id").getAsInt();
+        switch(temp){
+          case 1:
+            System.out.println("case1");
+          break;
+  
+          case 2:
+            JsonArray MB = CompList.get(i).getAsJsonObject().get("Children").getAsJsonArray();
+            //JsonArray Load = CompList.get(i).getAsJsonObject().get("Children").getAsJsonArray().get(0).getAsJsonArray();
+            System.out.println("case2");
+          break;
+  
+          case 3:
+            JsonArray LoadArray = CompList.get(i).getAsJsonObject().get("Children").getAsJsonArray().get(0).getAsJsonObject().get("Children").getAsJsonArray();
+            String Load = LoadArray.get(0).getAsJsonObject().get("Value").getAsString();
+            System.out.println(Load);
+          break;
+        };
       }
+    } catch (JSONException ex) {
+      ex.printStackTrace();
     }
   }  
 }
 
 public class Interface {
-    private Interface() {
-        OpenHardwareMonitorInterface OHWMInterface;
-    }
+  
+  public OpenHardwareMonitorInterface OHWMInterface  = new OpenHardwareMonitorInterface();
+  private int test;
+  public Interface() {
+    OHWMInterface = new OpenHardwareMonitorInterface();      
+    test = 0;
+  }
 
+  /*public void JsonFromUrl (String url) throws IOException, JSONException {
+      OHWMInterface.readJsonFromUrl(url);
+  }*/
 }
