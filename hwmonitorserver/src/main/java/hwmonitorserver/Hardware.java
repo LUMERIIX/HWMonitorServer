@@ -1,14 +1,12 @@
 package hwmonitorserver;
 
 public class Hardware {
-
     class CPU
     {
         String Name;
         double[] Clock;
         int Cores;
         float Temp;
-
     }
 
     class GPU
@@ -36,7 +34,7 @@ public class Hardware {
         float Temperature;  
     }
 
-    class Disk
+    class DISK
     {
         int UsedMemory;
         int AvailableMemory;
@@ -46,6 +44,23 @@ public class Hardware {
     class FAN
     {
         int RPM;
+    }
+
+    public CPU cpu;
+    public GPU gpu;
+    public MotherBoard mb;
+    public RAM ram; 
+    public DISK disk;
+    public FAN fan;
+
+    public Hardware ()
+    {
+        CPU cpu = new CPU();
+        GPU gpu = new GPU();
+        MotherBoard mb = new MotherBoard();
+        RAM ram = new RAM(); 
+        DISK disk = new DISK();
+        FAN fan = new FAN();
     }
 
 }

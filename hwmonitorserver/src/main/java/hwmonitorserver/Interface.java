@@ -20,7 +20,7 @@ import org.json.JSONException;
 class OpenHardwareMonitorInterface {
   public static final int PCNAME = 1;
   public static final int MB = 1;
-  public static final int CPUTop = 3;
+  public static int CPUTop = 3;
   public static final int CPUCores = 4; //Includes Array with all Cores
   
   public static final int RAMTop = 22;
@@ -96,7 +96,7 @@ public static void getMapObject(JsonObject object, Multimap <String,String> Link
     }
   }
 
-  public void parseJson (JsonObject obj) throws IOException, JSONException {
+  public void parseJson (JsonObject obj, Hardware hw) throws IOException, JSONException {
     assert(obj.isJsonObject());
 
     Multimap<String, String> Linkermap = ArrayListMultimap.create();
@@ -104,10 +104,7 @@ public static void getMapObject(JsonObject object, Multimap <String,String> Link
 
     System.out.println(Linkermap);
 
-    /**for(Linkermap.size())
-    {
-      switch(Linkermap)
-    }**/
+    //hw.cpu.Name = Linkermap.get(CPUTop);
 
     /*try{
       JsonArray stage1 = obj.get("Children").getAsJsonArray();  //stage 1 // 7 children
@@ -147,7 +144,7 @@ public class Interface {
   public OpenHardwareMonitorInterface OHWMInterface  = new OpenHardwareMonitorInterface();
   private int test;
   public Interface() {
-    OHWMInterface = new OpenHardwareMonitorInterface();      
+    //OHWMInterface = new OpenHardwareMonitorInterface();      
     test = 0;
   }
 }
