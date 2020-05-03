@@ -53,7 +53,6 @@ public static void getMapArray(JsonArray array, Multimap <String,String> Linkerm
 public static void getMapObject(JsonObject object, Multimap <String,String> Linkermap)
 {
     Set<String> keymap = object.keySet();
-    System.out.println(keymap);
     Iterator<String> iterator = keymap.iterator();
 
     Linkermap.put(object.get("id").getAsString(), object.get("Text").getAsString());
