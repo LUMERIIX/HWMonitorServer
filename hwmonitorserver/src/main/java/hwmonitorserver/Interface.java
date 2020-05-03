@@ -1,5 +1,6 @@
 package hwmonitorserver;
 
+import java.util.*; 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,6 +11,8 @@ import java.nio.charset.Charset;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.google.gson.JsonArray;
 
 import org.json.JSONException;
@@ -29,7 +32,49 @@ class OpenHardwareMonitorInterface {
 
   }
 
-  //public get
+public static void getMapArray(JsonArray array, Multimap <String,String> Linkermap)
+{
+  for(int i = 0; i < array.size();i++)
+    {
+        Object value = array.get(i);
+        if(value instanceof JsonObject)
+        {
+          JsonObject obj = (JsonObject) value;
+          getMapObject(obj, Linkermap);
+        }
+        else if(value instanceof JsonArray)
+        {
+          JsonArray arr = (JsonArray) value;
+          getMapArray(arr, Linkermap);
+        }
+    }
+}
+
+public static void getMapObject(JsonObject object, Multimap <String,String> Linkermap)
+{
+    Set<String> keymap = object.keySet();
+    System.out.println(keymap);
+    Iterator<String> iterator = keymap.iterator();
+
+    Linkermap.put(object.get("id").getAsString(), object.get("Text").getAsString());
+    Linkermap.put(object.get("id").getAsString(), object.get("Value").getAsString());
+  
+    while(iterator.hasNext())
+    {
+        Object value = object.get(iterator.next());
+
+        if(value instanceof JsonObject)
+        {
+          JsonObject obj = (JsonObject) value;
+          getMapObject(obj, Linkermap);
+        }
+        else if(value instanceof JsonArray)
+        {
+          JsonArray arr = (JsonArray) value;
+          getMapArray(arr, Linkermap);
+        }
+    }
+}
 
   public String readAll(Reader rd) throws IOException {
     StringBuilder sb = new StringBuilder();
@@ -54,8 +99,18 @@ class OpenHardwareMonitorInterface {
 
   public void parseJson (JsonObject obj) throws IOException, JSONException {
     assert(obj.isJsonObject());
-    int test = 0;
-    try{
+
+    Multimap<String, String> Linkermap = ArrayListMultimap.create();
+    getMapObject(obj, Linkermap);
+
+    System.out.println(Linkermap);
+
+    /**for(Linkermap.size())
+    {
+      switch(Linkermap)
+    }**/
+
+    /*try{
       JsonArray stage1 = obj.get("Children").getAsJsonArray();  //stage 1 // 7 children
       System.out.println("Children \n \n" + stage1 + "\n" + "\n" );  //Debug
       JsonObject stage2 = stage1.get(0).getAsJsonObject();
@@ -84,7 +139,7 @@ class OpenHardwareMonitorInterface {
       }
     } catch (JSONException ex) {
       ex.printStackTrace();
-    }
+    }*/
   }  
 }
 
@@ -96,8 +151,4 @@ public class Interface {
     OHWMInterface = new OpenHardwareMonitorInterface();      
     test = 0;
   }
-
-  /*public void JsonFromUrl (String url) throws IOException, JSONException {
-      OHWMInterface.readJsonFromUrl(url);
-  }*/
 }
