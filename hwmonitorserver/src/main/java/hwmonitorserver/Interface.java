@@ -12,68 +12,72 @@ import java.nio.charset.Charset;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Multimap;
 import com.google.gson.JsonArray;
 
 import org.json.JSONException;
 
 class OpenHardwareMonitorInterface {
-  public static final int PCNAME = 1;
-  public static final int MB = 1;
-  public static int CPUTop = 3;
-  public static final int CPUCores = 4; //Includes Array with all Cores
+  public static final int TextPos = 0;
+  public static final int ValuePos = 1;
+  public static final String PCNAME = "1";
+  public static final String MB = "1";
+  public static final String CPUTop = "3";
+  public static final String CPUEnd = "22";
+  public static final String CPUCores = "4"; //Includes Array with all Cores
   
-  public static final int RAMTop = 22;
-  public static final int UsedMemory = 26;
-  public static final int FreeMemory = 27;
+  public static final String RAMTop = "22";
+  public static final String UsedMemory = "26";
+  public static final String FreeMemory = "27";
 
   public OpenHardwareMonitorInterface()
   {
 
   }
 
-public static void getMapArray(JsonArray array, Multimap <String,String> Linkermap)
-{
-  for(int i = 0; i < array.size();i++)
-    {
-        Object value = array.get(i);
-        if(value instanceof JsonObject)
-        {
-          JsonObject obj = (JsonObject) value;
-          getMapObject(obj, Linkermap);
-        }
-        else if(value instanceof JsonArray)
-        {
-          JsonArray arr = (JsonArray) value;
-          getMapArray(arr, Linkermap);
-        }
-    }
-}
+  public static void getMapArray(JsonArray array, Multimap <String,String> Linkermap)
+  {
+    for(int i = 0; i < array.size();i++)
+      {
+          Object value = array.get(i);
+          if(value instanceof JsonObject)
+          {
+            JsonObject obj = (JsonObject) value;
+            getMapObject(obj, Linkermap);
+          }
+          else if(value instanceof JsonArray)
+          {
+            JsonArray arr = (JsonArray) value;
+            getMapArray(arr, Linkermap);
+          }
+      }
+  }
 
-public static void getMapObject(JsonObject object, Multimap <String,String> Linkermap)
-{
-    Set<String> keymap = object.keySet();
-    Iterator<String> iterator = keymap.iterator();
+  public static void getMapObject(JsonObject object, Multimap <String,String> Linkermap)
+  {
+      Set<String> keymap = object.keySet();
+      Iterator<String> iterator = keymap.iterator();
 
-    Linkermap.put(object.get("id").getAsString(), object.get("Text").getAsString());
-    Linkermap.put(object.get("id").getAsString(), object.get("Value").getAsString());
-  
-    while(iterator.hasNext())
-    {
-        Object value = object.get(iterator.next());
+      Linkermap.put(object.get("id").getAsString(), object.get("Text").getAsString());
+      Linkermap.put(object.get("id").getAsString(), object.get("Value").getAsString());
+    
+      while(iterator.hasNext())
+      {
+          Object value = object.get(iterator.next());
 
-        if(value instanceof JsonObject)
-        {
-          JsonObject obj = (JsonObject) value;
-          getMapObject(obj, Linkermap);
-        }
-        else if(value instanceof JsonArray)
-        {
-          JsonArray arr = (JsonArray) value;
-          getMapArray(arr, Linkermap);
-        }
-    }
-}
+          if(value instanceof JsonObject)
+          {
+            JsonObject obj = (JsonObject) value;
+            getMapObject(obj, Linkermap);
+          }
+          else if(value instanceof JsonArray)
+          {
+            JsonArray arr = (JsonArray) value;
+            getMapArray(arr, Linkermap);
+          }
+      }
+  }
 
   public String readAll(Reader rd) throws IOException {
     StringBuilder sb = new StringBuilder();
@@ -104,38 +108,19 @@ public static void getMapObject(JsonObject object, Multimap <String,String> Link
 
     System.out.println(Linkermap);
 
-    //hw.cpu.Name = Linkermap.get(CPUTop);
-
-    /*try{
-      JsonArray stage1 = obj.get("Children").getAsJsonArray();  //stage 1 // 7 children
-      System.out.println("Children \n \n" + stage1 + "\n" + "\n" );  //Debug
-      JsonObject stage2 = stage1.get(0).getAsJsonObject();
-      JsonArray CompList = stage2.get("Children").getAsJsonArray();
-      System.out.println("Children \n \n" + CompList + "\n" + "\n" );  //Debug
-  
-      for(int i = 0; i < CompList.size(); i++){
-        int temp = CompList.get(i).getAsJsonObject().get("id").getAsInt();
-        switch(temp){
-          case 1:
-            System.out.println("case1");
-          break;
-  
-          case 2:
-            JsonArray MB = CompList.get(i).getAsJsonObject().get("Children").getAsJsonArray();
-            //JsonArray Load = CompList.get(i).getAsJsonObject().get("Children").getAsJsonArray().get(0).getAsJsonArray();
-            System.out.println("case2");
-          break;
-  
-          case 3:
-            JsonArray LoadArray = CompList.get(i).getAsJsonObject().get("Children").getAsJsonArray().get(0).getAsJsonObject().get("Children").getAsJsonArray();
-            String Load = LoadArray.get(0).getAsJsonObject().get("Value").getAsString();
-            System.out.println(Load);
-          break;
-        };
+    try
+    {
+      hw.cpu.Name =  Iterables.get(Linkermap.get(CPUTop), TextPos); // 0 = Text; 1 = Value;
+      for(int i = Integer.parseInt(CPUTop); i < Integer.parseInt(CPUEnd); i++)
+      {
+        if(Iterables.get(Linkermap.get(Integer.toString(i)), TextPos).contains("CPU"))
+        {
+          double val = ParseUtil.CutSpecialChars(Iterables.get(Linkermap.get(Integer.toString(i)), ValuePos));
+          Arrays.set(hw.cpu.Load,hw.cpu.Load.length+1,val);
+        }
       }
-    } catch (JSONException ex) {
-      ex.printStackTrace();
-    }*/
+    }
+    catch (NullPointerException ex){}
   }  
 }
 

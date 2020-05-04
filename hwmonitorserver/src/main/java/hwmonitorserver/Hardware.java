@@ -3,10 +3,17 @@ package hwmonitorserver;
 public class Hardware {
     class CPU
     {
-        String Name;
-        double[] Clock;
-        int Cores;
-        float Temp;
+        public String Name;
+        public double[] Clock;
+        public double[] Load;
+        public int Cores;
+        public float Temp;
+        public CPU()
+        {
+            Name = new String();
+            Clock = new double[]{};
+            Load = new double[]{};
+        }
     }
 
     class GPU
@@ -55,12 +62,12 @@ public class Hardware {
 
     public Hardware ()
     {
-        CPU cpu = new CPU();
-        GPU gpu = new GPU();
-        MotherBoard mb = new MotherBoard();
-        RAM ram = new RAM(); 
-        DISK disk = new DISK();
-        FAN fan = new FAN();
+        cpu = new CPU();
+        gpu = new GPU();
+        mb = new MotherBoard();
+        ram = new RAM(); 
+        disk = new DISK();
+        fan = new FAN();
     }
 
 }
