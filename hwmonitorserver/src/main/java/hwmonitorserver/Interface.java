@@ -19,17 +19,25 @@ import com.google.gson.JsonArray;
 import org.json.JSONException;
 
 class OpenHardwareMonitorInterface {
+
   public static final int TextPos = 0;
   public static final int ValuePos = 1;
   public static final String PCNAME = "1";
-  public static final String MB = "1";
+  public static final String MB = "2";
   public static final String CPUTop = "3";
   public static final String CPUEnd = "22";
-  public static final String CPUCores = "4"; //Includes Array with all Cores
+
+  public static final String GPUTop = "28";
+  public static final String GPUClock ="30";
+  public static final String GPUMemoryClock ="31";
+  public static final String GPULoad ="36";
+  public static final String GPUTemp ="34";
+  public static final String GPUMemoryUsed ="46"; 
+  public static final String GPUMemoryFree ="45"; 
+  public static final String GPUFan ="41"; 
   
-  public static final String RAMTop = "22";
-  public static final String UsedMemory = "26";
-  public static final String FreeMemory = "27";
+  public static final String RamUsedMemory = "26";
+  public static final String RamFreeMemory = "27";
 
   public OpenHardwareMonitorInterface()
   {
@@ -110,15 +118,35 @@ class OpenHardwareMonitorInterface {
 
     try
     {
+      //CPU
       hw.cpu.Name =  Iterables.get(Linkermap.get(CPUTop), TextPos); // 0 = Text; 1 = Value;
       for(int i = Integer.parseInt(CPUTop); i < Integer.parseInt(CPUEnd); i++)
       {
         if(Iterables.get(Linkermap.get(Integer.toString(i)), TextPos).contains("CPU"))
         {
-          double val = ParseUtil.CutSpecialChars(Iterables.get(Linkermap.get(Integer.toString(i)), ValuePos));
-          Arrays.set(hw.cpu.Load,hw.cpu.Load.length+1,val);
+          hw.cpu.Load.add(ParseUtil.CutSpecialSymbols(Iterables.get(Linkermap.get(Integer.toString(i)), ValuePos)));
         }
       }
+      hw.cpu.Cores = hw.cpu.Load.size();
+
+      //GPU
+      hw.gpu.Name =  Iterables.get(Linkermap.get(GPUTop), TextPos); // 0 = Text; 1 = Value;
+      hw.gpu.CoreClock = (int) ParseUtil.CutCharacters(Iterables.get(Linkermap.get(GPUClock), ValuePos));  //MHz
+      hw.gpu.MemoryClock = (int) ParseUtil.CutCharacters(Iterables.get(Linkermap.get(GPUMemoryClock), ValuePos));  //MHz
+      hw.gpu.CoreLoad = ParseUtil.CutSpecialSymbols(Iterables.get(Linkermap.get(GPULoad), ValuePos));
+      hw.gpu.Temperature = ParseUtil.CutSpecialSymbols(Iterables.get(Linkermap.get(GPUTemp), ValuePos));
+      hw.gpu.UsedMemory = ParseUtil.CutCharacters(Iterables.get(Linkermap.get(GPUMemoryUsed), ValuePos)); //MB
+      hw.gpu.AvailableMemory = ParseUtil.CutCharacters(Iterables.get(Linkermap.get(GPUMemoryFree), ValuePos)); //MB
+      hw.gpu.FanSpeed = (int) ParseUtil.CutCharacters(Iterables.get(Linkermap.get(GPUFan), ValuePos));
+
+      //RAM
+      hw.ram.AvailableMemory = (int) (ParseUtil.CutCharacters(Iterables.get(Linkermap.get(RamFreeMemory), ValuePos))*1000); //MB
+      hw.ram.UsedMemory = (int) (ParseUtil.CutCharacters(Iterables.get(Linkermap.get(RamUsedMemory), ValuePos))*1000); //MB
+
+      //MB
+      hw.mb.Name = Iterables.get(Linkermap.get(MB), TextPos);
+      
+      System.out.println("test");
     }
     catch (NullPointerException ex){}
   }  
