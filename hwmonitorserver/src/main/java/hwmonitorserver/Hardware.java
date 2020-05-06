@@ -1,56 +1,82 @@
 package hwmonitorserver;
 
+import java.util.*;
+
 public class Hardware {
     class CPU
     {
         public String Name;
-        public double[] Clock;
-        public double[] Load;
+        public ArrayList <Double> Clock;
+        public ArrayList <Double> Load;
         public int Cores;
         public float Temp;
         public CPU()
         {
             Name = new String();
-            Clock = new double[]{};
-            Load = new double[]{};
+            Clock = new ArrayList <Double>();
+            Load = new ArrayList <Double>();
         }
     }
 
     class GPU
     {
-        String Name;
-        double MemoryClock;
-        int CoreClock;
-        int CoreLoad;
-        int UsedMemory;
-        int AvailableMemory;
-        float Temperature;
-        int FanSpeed;
+        public String Name;
+        public double MemoryClock;
+        public int CoreClock;
+        public double CoreLoad;
+        public double UsedMemory;
+        public double AvailableMemory;
+        public double Temperature;
+        public int FanSpeed;
+
+        public GPU()
+        {
+            Name = new String();
+        }
+
     }
 
     class MotherBoard
     {
-        String Name;
-        float[] Temperature;
+        public String Name;
+        public float[] Temperature;
+
+        public MotherBoard()
+        {
+            Name = new String();
+            Temperature  = new float[]{};
+        }
     }
 
     class RAM
     {
-        int UsedMemory;
-        int AvailableMemory;
-        float Temperature;  
+        public int UsedMemory;
+        public int AvailableMemory;
+        public float Temperature;  
+
+        public RAM()
+        {
+        }
     }
 
     class DISK
     {
-        int UsedMemory;
-        int AvailableMemory;
-        float Temperature;
+        public int UsedMemory;
+        public int AvailableMemory;
+        public float Temperature;
+
+        public DISK()
+        {
+        }
     }
 
     class FAN
     {
-        int RPM;
+        public int RPM;
+
+        public FAN()
+        {
+        }
     }
 
     public CPU cpu;
