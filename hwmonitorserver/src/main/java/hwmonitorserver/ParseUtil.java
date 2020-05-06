@@ -2,9 +2,16 @@ package hwmonitorserver;
 
 public class ParseUtil {
 
-    public static double CutSpecialChars(String str)
+    public static double CutSpecialSymbols(String str)
     {
-        String temp = str.replaceAll("[^a-zA-Z0-9\\s+]", "");
+        String temp = str.replaceAll("[^0-9\\s+.]", "");
+        temp.trim();
+        return Double.parseDouble(temp);
+    } 
+
+    public static double CutCharacters(String str)
+    {
+        String temp = str.replaceAll("[a-zA-Z\\s+]", "");
         temp.trim();
         return Double.parseDouble(temp);
     } 
