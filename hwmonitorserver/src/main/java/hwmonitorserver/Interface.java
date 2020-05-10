@@ -22,6 +22,8 @@ class OpenHardwareMonitorInterface {
 
   public static final int TextPos = 0;
   public static final int ValuePos = 1;
+
+
   public static final String PCNAME = "1";
   public static final String MB = "2";
   public static final String CPUTop = "3";
@@ -114,8 +116,6 @@ class OpenHardwareMonitorInterface {
     Multimap<String, String> Linkermap = ArrayListMultimap.create();
     getMapObject(obj, Linkermap);
 
-    System.out.println(Linkermap);
-
     try
     {
       //CPU
@@ -127,7 +127,7 @@ class OpenHardwareMonitorInterface {
           hw.cpu.Load.add(ParseUtil.CutSpecialSymbols(Iterables.get(Linkermap.get(Integer.toString(i)), ValuePos)));
         }
       }
-      hw.cpu.Cores = hw.cpu.Load.size();
+      hw.cpu.Cores = hw.cpu.Load.size()/2;
 
       //GPU
       hw.gpu.Name =  Iterables.get(Linkermap.get(GPUTop), TextPos); // 0 = Text; 1 = Value;
@@ -145,8 +145,6 @@ class OpenHardwareMonitorInterface {
 
       //MB
       hw.mb.Name = Iterables.get(Linkermap.get(MB), TextPos);
-      
-      System.out.println("test");
     }
     catch (NullPointerException ex){}
   }  
@@ -155,9 +153,7 @@ class OpenHardwareMonitorInterface {
 public class Interface {
   
   public OpenHardwareMonitorInterface OHWMInterface  = new OpenHardwareMonitorInterface();
-  private int test;
   public Interface() {
     //OHWMInterface = new OpenHardwareMonitorInterface();      
-    test = 0;
   }
 }

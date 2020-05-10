@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.*;
 
 
 /**
@@ -24,7 +25,6 @@ public final class App {
         JsonObject json = interface1.OHWMInterface.readJsonFromUrl("http://192.168.1.6:8085/data.json");
         Hardware hw = new Hardware();
         interface1.OHWMInterface.parseJson(json,hw);
-
 
       }
 }

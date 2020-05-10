@@ -10,6 +10,7 @@ public class Hardware {
         public ArrayList <Double> Load;
         public int Cores;
         public float Temp;
+        public ArrayList <Double> Power;
         public CPU()
         {
             Name = new String();
@@ -28,6 +29,7 @@ public class Hardware {
         public double AvailableMemory;
         public double Temperature;
         public int FanSpeed;
+        public double Power;
 
         public GPU()
         {
@@ -39,17 +41,21 @@ public class Hardware {
     class MotherBoard
     {
         public String Name;
-        public float[] Temperature;
+        public ArrayList<Float> Temperature;
+        public double CoreVoltage;
+        public double BatteryVoltage;
+        public double Voltage3V3;
 
         public MotherBoard()
         {
             Name = new String();
-            Temperature  = new float[]{};
+            Temperature  = new ArrayList <Float>();
         }
     }
 
     class RAM
     {
+        public String Name;
         public int UsedMemory;
         public int AvailableMemory;
         public float Temperature;  
@@ -61,11 +67,27 @@ public class Hardware {
 
     class DISK
     {
+        public String Name;
         public int UsedMemory;
         public int AvailableMemory;
         public float Temperature;
+        public float ReadRate;
+        public float WriteRate;
 
         public DISK()
+        {
+        }
+    }
+
+    class NetworkInterface
+    {
+        public String Name;
+        public double UploadSpeed;
+        public double DownloadSpeed;
+        public double UploadedData;
+        public double DownloadedData;
+
+        public NetworkInterface()
         {
         }
     }
