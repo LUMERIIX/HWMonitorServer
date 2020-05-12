@@ -89,6 +89,23 @@ class OpenHardwareMonitorInterface {
       }
   }
 
+  public void extractIterationSector(Multimap<String, String> map ,int IterStart, int IterEnd,  ArrayList<Double> arr)
+  {
+    for(int i = IterStart; i < IterEnd; i++)
+    {
+        arr.add(ParseUtil.CutSpecialSymbols(Iterables.get(map.get(Integer.toString(i)), ValuePos)));
+    }
+  }
+
+  /**@Override
+  public void extractIterationSector(Multimap<String, String> Linkermap ,int IterStart, int IterEnd,  ArrayList<String> arr)
+  {
+    for(int i = Integer.parseInt(CPUTop); i < Integer.parseInt(CPUEnd); i++)
+    {
+        arr.add(ParseUtil.CutSpecialSymbols(Iterables.get(Linkermap.get(Integer.toString(i)), ValuePos)));
+    }
+  }**/
+
   public String readAll(Reader rd) throws IOException {
     StringBuilder sb = new StringBuilder();
     int cp;
@@ -120,13 +137,14 @@ class OpenHardwareMonitorInterface {
     {
       //CPU
       hw.cpu.Name =  Iterables.get(Linkermap.get(CPUTop), TextPos); // 0 = Text; 1 = Value;
-      for(int i = Integer.parseInt(CPUTop); i < Integer.parseInt(CPUEnd); i++)
+      extractIterationSector(Linkermap, Integer.parseInt(CPUTop), Integer.parseInt(CPUEnd), hw.cpu.Load);
+      /**for(int i = Integer.parseInt(CPUTop); i < Integer.parseInt(CPUEnd); i++)
       {
         if(Iterables.get(Linkermap.get(Integer.toString(i)), TextPos).contains("CPU"))
         {
           hw.cpu.Load.add(ParseUtil.CutSpecialSymbols(Iterables.get(Linkermap.get(Integer.toString(i)), ValuePos)));
         }
-      }
+      }**/
       hw.cpu.Cores = hw.cpu.Load.size()/2;
 
       //GPU
