@@ -1,0 +1,16 @@
+C:\data\Dev\HWMonitorServer\hwmonitorserver\HWMonitorServer\bin\Debug\netcoreapp3.1\HWMonitorServer.exe
+C:\data\Dev\HWMonitorServer\hwmonitorserver\HWMonitorServer\bin\Debug\netcoreapp3.1\HWMonitorServer.deps.json
+C:\data\Dev\HWMonitorServer\hwmonitorserver\HWMonitorServer\bin\Debug\netcoreapp3.1\HWMonitorServer.runtimeconfig.json
+C:\data\Dev\HWMonitorServer\hwmonitorserver\HWMonitorServer\bin\Debug\netcoreapp3.1\HWMonitorServer.runtimeconfig.dev.json
+C:\data\Dev\HWMonitorServer\hwmonitorserver\HWMonitorServer\bin\Debug\netcoreapp3.1\HWMonitorServer.dll
+C:\data\Dev\HWMonitorServer\hwmonitorserver\HWMonitorServer\bin\Debug\netcoreapp3.1\HWMonitorServer.pdb
+C:\data\Dev\HWMonitorServer\hwmonitorserver\HWMonitorServer\obj\Debug\netcoreapp3.1\HWMonitorServer.csprojAssemblyReference.cache
+C:\data\Dev\HWMonitorServer\hwmonitorserver\HWMonitorServer\obj\Debug\netcoreapp3.1\HWMonitorServer.AssemblyInfoInputs.cache
+C:\data\Dev\HWMonitorServer\hwmonitorserver\HWMonitorServer\obj\Debug\netcoreapp3.1\HWMonitorServer.AssemblyInfo.cs
+C:\data\Dev\HWMonitorServer\hwmonitorserver\HWMonitorServer\obj\Debug\netcoreapp3.1\HWMonitorServer.csproj.CoreCompileInputs.cache
+C:\data\Dev\HWMonitorServer\hwmonitorserver\HWMonitorServer\obj\Debug\netcoreapp3.1\HWMonitorServer.dll
+C:\data\Dev\HWMonitorServer\hwmonitorserver\HWMonitorServer\obj\Debug\netcoreapp3.1\HWMonitorServer.pdb
+C:\data\Dev\HWMonitorServer\hwmonitorserver\HWMonitorServer\obj\Debug\netcoreapp3.1\HWMonitorServer.genruntimeconfig.cache
+C:\data\Dev\HWMonitorServer\hwmonitorserver\HWMonitorServer\bin\Debug\netcoreapp3.1\HidSharp.dll
+C:\data\Dev\HWMonitorServer\hwmonitorserver\HWMonitorServer\bin\Debug\netcoreapp3.1\LibreHardwareMonitorLib.dll
+C:\data\Dev\HWMonitorServer\hwmonitorserver\HWMonitorServer\obj\Debug\netcoreapp3.1\HWMonitorServer.csproj.CopyComplete
