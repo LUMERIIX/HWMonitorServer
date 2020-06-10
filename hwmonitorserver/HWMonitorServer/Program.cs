@@ -12,21 +12,6 @@ using Newtonsoft.Json;
 namespace HWMonitorServer
 {
 
-  public class UpdateVisitor : IVisitor
-  {
-    public void VisitComputer(IComputer computer)
-    {
-      computer.Traverse(this);
-    }
-    public void VisitHardware(IHardware hardware)
-    {
-      hardware.Update();
-      foreach (IHardware subHardware in hardware.SubHardware) subHardware.Accept(this);
-    }
-    public void VisitSensor(ISensor sensor) { }
-    public void VisitParameter(IParameter parameter) { }
-  }
-
   public class System
   {
     public string Name { get; set; }
@@ -96,16 +81,15 @@ namespace HWMonitorServer
       while (true)
             {
                 computer.Open();
-                computer.Accept(new UpdateVisitor());
 
         foreach (var hw in computer.Hardware)
                 {
-                  Component comptemp = new Component();
-                  comptemp.Name = hw.Name;
+                  Component component = new Component();
+                  component.Name = hw.Name;
                   List<SensorType> sensTypes = new List<SensorType>();
                   sensTypes = getSensorTypes(hw);
 
-                 comptemp.Sensors = new List<Sensor>();
+                  component.Sensors = new List<Sensor>();
 
                 foreach (var sensorType in sensTypes)
                     {
@@ -124,10 +108,10 @@ namespace HWMonitorServer
                             sens.SensorNodes.Add(node);
                           }
                       }
-                      comptemp.Sensors.Add(sens);
+                      component.Sensors.Add(sens);
                     }
 
-                  sys.Components.Add(comptemp);
+                  sys.Components.Add(component);
                   }
         String JsonString = JsonConvert.SerializeObject(sys);
         Console.WriteLine("{0}", JsonString);
