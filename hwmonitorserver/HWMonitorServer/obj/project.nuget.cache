@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "VSlK92nt2c3NKu81azfD7X793KxMwSsCS1a6TsTVoMIQMa/6ffiZ9CC+Cs1OE18BBMkh+AOK9PSWZqJ6z0ugeg==",
+  "dgSpecHash": "0HiA0VGYd47IoNHB5et37mAAmOm6NQejMcxKxV9FthYoXfGExxgIgh3k7MwOM4jSSWT8rIZXzm+/1bFrSMvGKA==",
   "success": true,
   "projectFilePath": "C:\\data\\Dev\\HWMonitorServer\\hwmonitorserver\\HWMonitorServer\\HWMonitorServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
+    "C:\\Users\\Lukas\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\system.codedom\\4.7.0\\system.codedom.4.7.0.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\system.management\\4.7.0\\system.management.4.7.0.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
