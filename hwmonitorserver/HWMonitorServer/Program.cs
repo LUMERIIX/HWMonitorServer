@@ -1,10 +1,6 @@
 using System;
 using LibreHardwareMonitor.Hardware;
-using LibreHardwareMonitor.Interop;
-using LibreHardwareMonitor.Software;
 
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Collections.Generic;
 using System.Threading;
 using Newtonsoft.Json;
@@ -69,7 +65,7 @@ namespace HWMonitorServer
               IsGpuEnabled = true,
               IsMemoryEnabled = true,
               IsMotherboardEnabled = true,
-              //IsControllerEnabled = true,
+              //IsControllerEnabled = true,  //create new project and try it again is a .NET error
               IsNetworkEnabled = true,
               IsStorageEnabled = true
             };
